@@ -1,0 +1,40 @@
+@startuml "pyspark-architecture"
+
+rectangle {
+    [SparkContext]
+    
+    component "PY4J"{
+        [SaprkContext1] as Sparkontext
+    }
+   
+    [LocalFS]
+}
+
+rectangle {
+    [SparkWorker1] as "SparkWorker"
+    [SparkWorker2] as "SparkWorker"
+
+    [Python1] as "Python"
+    [Python2] as "Python"
+    [Python3] as "Python"
+    [Python4] as "Python"
+
+}
+
+
+[SparkContext] <--> PY4J
+[SparkContext] <--> [LocalFS]
+[LocalFS] <--> PY4J
+
+[SparkWorker1] <-r-> [Python1]
+[SparkWorker1] <-d-> [Python2]
+
+[SparkWorker2] <-r-> [Python3]
+[SparkWorker2] <-d-> [Python4]
+ 
+[SparkWorker1] <-d-> [SparkWorker2]
+[PY4J] <--> [SparkWorker1]
+[PY4J] <--> [SparkWorker2]
+
+
+@enduml
